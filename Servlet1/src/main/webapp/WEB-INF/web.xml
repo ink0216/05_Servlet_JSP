@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" 
+	id="WebApp_ID" version="6.0">
+  <display-name>Servlet1</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+  </welcome-file-list>
+  
+  <!-- HTML 코드랑 똑같이 쓸 수 있음! -->
+  <!-- web.xml : 배포 서술자 
+  	- 프로젝트 배포(Run on Server 실행) 시 
+  		적용할 설정을 작성하는 xml 파일
+  	- 메인 페이지 지정(어떤 파일이 메인 페이지가 될 지 지정), 
+  	요청 주소-Servlet 클래스 매핑(연결해줌)(/ex1이라는 요청 오면 ExampleServlet1과 연결) -->
+  	
+  <!-- 특정 클래스를 일반 클래스에서 Servlet으로 지정하기
+  			->Server 실행 시 자동으로 객체로 생성됨 (원래는 new 연산자로 객체 만들어서 했었음)-->
+  		<servlet>
+  		<servlet-name>example1</servlet-name> <!-- 밑에거 이름 너무 기니까 이름 줄임 -->
+  		<servlet-class>edu.kh.servlet.controller.ExampleServlet1</servlet-class>
+  		<!--  패키지명이랑 클래스명을 다 적는다-->
+  		</servlet>
+  		
+  		<!--  등록된 Servlet과 요청 주소 매핑하기-->
+  		<servlet-mapping>
+  		<servlet-name>example1</servlet-name> <!-- example1이라는 서블릿은 -->
+  		<url-pattern>/ex1</url-pattern> <!-- /ex1이라는 요청 왔을 때 처리하는 것으로 연결할 거야 -->
+  		</servlet-mapping>
+  		
+  		<!-- 이제 이거 안쓸거임 -->
+  		
+  			
+  
+  
+  
+  
+</web-app>
