@@ -9,6 +9,42 @@
     <!-- 메인페이지 -->
     <h1>이인경의 Servlet 복습 프로젝트</h1>
     <!-- 피자 주문 요청 -> 영수증 응답 -->
-    
+    <form action="/ex3" method="get">
+        <h3>피자 주문하기</h3>
+        피자 선택 : 
+        <select name="pizza">
+            <option value="페퍼로니">페퍼로니(15000원)</option>
+            <option value="포테이토">포테이토(16000원)</option>
+            <option value="치즈">치즈(17000원)</option>
+            <option value="새우">새우(18000원)</option>
+            <option value="하와이안">하와이안(19000원)</option>
+            <option value="불고기">불고기(20000원)</option>
+        </select>
+        <br>
+        도우 :
+        씬 <input type="radio" name="dough" value="thin">
+        /
+        오리지널(+2000원) <input type="radio" name="dough" value="original">
+        /
+        나폴리(+3000원) <input type="radio" name="dough" value="napoli">
+        <br>
+        기타 옵션 : <br>
+        <input type="checkbox" name="opt" value="핫소스">
+        핫소스 추가(+1000원)
+        <br>
+        <input type="checkbox" name="opt" value="콜라">
+        콜라 추가(+3000원)
+        <br>
+        <input type="checkbox" name="opt" value="감자튀김">
+        감자튀김 추가(+4000원)
+        
+        <br>
+        주문자명 : <input type="text" name="ordererName">
+        주소 : <input type="text" name="ordererAddress" size="50"> <br>
+        <button>주문하기</button>
+
+        
+
+    </form>
 </body>
 </html>
