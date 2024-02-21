@@ -28,7 +28,7 @@ public class ExampleServlet1 extends HttpServlet{
 		 * HttpServletResponse resp
 		 * 	- 클라이언트 요청 시 자동 생성되는 객체
 		 * 	- 서버가 클라이언트에게 응답할 수 있는 방법을 제공하는 객체
-		 * 		(서버 -> 클라이언트로 출력하는 스트림(PrintWriter)(서버가 클라이언트에 출력해서 쓴다)
+		 * 		(서버 -> 클라이언트로 출력하는 스트림(PrintWriter))(서버가 클라이언트에 출력해서 쓴다)
 		 * 
 		 * 
 		 * */
