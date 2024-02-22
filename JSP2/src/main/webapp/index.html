@@ -1,0 +1,185 @@
+<!-- webapp 폴더가, 배포되는 것의 최상위폴더(이 폴더 안의 것들이 배포됨) -->
+<!-- 톰캣이 webapp폴더의 index라는 폴더 찾음 -->
+<!-- html 파일은 webapp폴더 안에 만들기 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSP Project 2</title>
+</head>
+<body>
+    <h2>
+        <a href="/el">EL(Expression Language)</a>
+        /el이라는 요청을 보낼 예정이다
+        ->그 요청을 처리할 서블릿 만들기
+    </h2>
+    <pre>
+        - JSP에서 표현식( <%=  %> , HTML 값을 자바 코드로 바꿔주는 것)을 간단하고 효율적으로 작성할 수 있도록
+        고안된 언어 (JSP 기본 내장)
+
+        - Java 값을 HTML 형식으로 표시(출력) 언어
+
+        - 기본 작성 형식 : \${ key } 
+
+        <h3>EL 특징 1 : get이라는 단어를 사용하지 않음 </h3>
+
+        - 출력 용도만의 언어이기 때문에 set이라는 개념이 존재하지 않음(값을 얻어오기만 하고 세팅하지 않음)
+        (반대되는 get만 남아있기 때문에 get이라는 단어를 생략하여 사용)
+        (굳이 student.getName 안하고 그냥 student.name만 해도 됨 get밖에 못하니까)
+        <h3>EL 특징 2 : null, NullPointerException은 빈칸으로 처리</h3>
+        NullPointerException : 참조하는 객체가 없는데 객체를 참조하려고 할 때 발생하는 예외
+        근데 EL을 쓰면 빈칸으로 나오고 예외 뜨지 않음
+        Student std= null;
+        std.getName()  
+        ==>NullPointerException
+
+        근데 ${std.name}하면 예외 생기는데 NullPointerException라고 안뜨고 빈칸으로 뜸
+    </pre>
+    <hr><hr><hr>
+    <h2>
+	<a href="/scope">Servlet/JSP 내장 객체와 범위(Scope)</a>
+    /scope의 요청을 get방식으로 보낼거임->이 요청 처리할 서블릿 만들기
+	</h2>
+	
+	<pre>
+	Servlet/JSP에는 4종류 범위를 나타낸 내장 객체가 존재한다!
+	-> 각 종류마다 영향을 끼치는 범위가 달라진다
+    -> 원하는 데이터를 언제까지 유지할 지 제어 가능!!!!!!
+	
+	<h3>1. page (pageContext) 객체 : 현재 페이지 안에서만 쓸 수 있는 객체</h3>
+	-> 현재 JSP에서만 사용 가능한 객체(Servlet X)
+	
+	<h3>2. request (요청)객체 == HttpServletRequest</h3>
+	-> 요청 받은 페이지(Servlet/JSP)와
+	위임 받은 페이지(Servlet/JSP)에서만 유지되는 객체
+
+    <pre>
+        서블릿 = 요청 받아 응답 해주는 자바 클래스
+        요청 정보 담고있는 HttpServletRequest
+        ->근데 화면 만드는거 힘들어서 JSP에 넘겨줌
+    --> 최소 두 페이지 이상(위임한 서블릿 + 위임받은 JSP)에서 유지됨
+    --> 위임을 연달아 하기도 함 
+    </pre>
+	
+	<h3>3. session (입회, 접속) 객체</h3>
+	- session : 서버에 접속한 클라이언트를 나타내거나, 
+                관련 정보를 get/set 할 수 있는 객체
+                (session 객체는 서버에서 관리함)(누가 우리 서버에 들어와있는지)
+            - session : 접속
+            - session이라는 객체는 클라이언트가 서버에 접속하면 생성됨
+                (클라이언트가 브라우저로 사이트 들어왔을 때 session객체가 클라이언트 한 명당 하나씩만 생김)
+            - session : 세션 만료 or 브라우저 종료 시까지만 유지됨
+	- [중요!] session은 브라우저 마다 하나씩 생성된다!!!
+        (새탭, 새창은 아님)
+	
+        - [유지 범위]
+        사이트 접속 ~ 브라우저 종료 | 세션 만료
+	
+        - session이 유지되는 상태에서는 
+        아무 곳에서나 가져다 사용할 수 있다!
+        (네이버 로그인 해두면 다른 페이지 들어가거나 다른 창 열어도 로그인 유지됨)
+        (로그아웃 == 세션 만료시키기==접속 기록 없애기)
+	
+    <h3>4. application (ServletContext) 객체</h3>
+        - 웹 앱 = 웹 상에서 동작하는 앱 만들기
+        - 웹 : 네트워크 안에 들어와서 인터넷에 들어와서 웹이라는 공간에서 정보 공유
+        - 네트워크 :
+        - 인터넷 : 네트워크를 통해서 정보를 공유하는 것
+        - 하나의 웹 애플리케이션 마다 1개만 생성되는 객체
+        (Server를 키면 딱 1개만 생성되는 객체)
+	
+        - 생성된 application 객체는 어디서든 누구든지 사용 가능
+	
+        - [유지 범위]
+        서버 실행 ~ 서버 종료
+	
+        <h3>뒤로 갈 수록 유지되는 범위 넓어짐</h3>
+    <h3>5. 내장 객체의 우선 순위 : page > request > session > application </h3>
+	</pre>
+    <hr><hr><hr>
+    <h2>
+        <a href="/find">forward(요청 위임)</a>
+    </h2>
+    <pre>
+
+    - 클라이언트의 요청을 받은 Servlet/JSP에서 응답을 수행하는 것이 아닌
+        HttpServletRequest(파라미터 등 요청 정보 담긴 객체), HttpServletResponse(응답하는 방법 담긴 객체) 객체를 
+        다른 Servlet/JSP로 넘겨 대신 응답하게 하는 것
+
+        - 보통 Servlet에서 요청 처리를 완료한 후  
+        응답 화면을 만들 때 JSP로 위임함
+
+        - RequestDispatcher 요청 발송자 객체를 이용해 
+        HttpServletRequest, HttpServletResponse를 
+        지정된 Servlet/JSP로 요청 위임 (배달해주는 애가 필요하다)
+
+        [작성법]
+        String path = "JSP 파일 경로";
+        RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+        dispatcher.forward(request, response);
+    </pre>
+    <hr><hr><hr>
+    
+<h2>
+    <a href="/signup">Redirect(재요청)</a>
+    다른 곳을 가리키다 <br>
+    direct=가리키다
+</h2>
+<pre>
+    - 클라이언트의 요청을받은 Servlet/JSP에서
+    직접 응답 또는 요청 위임을 하지 않고
+    다른 Servlet/JSP를 요청하는 것
+
+    - 보통 Servlet에서 요청 처리를 완료한 후
+    보여줄 응답 화면이 없을 경우(응답 화면이 필요 없는 경우)
+    다른 응답화면을 만들어주는 요청을 다시 요청함
+
+   ***********************************************
+redirect는 다시 요청하는 것이기 때문에
+새로운 HttpServletRequest 객체가 만들어진다 ->HttpServletRequest가 두개가 된다는 뜻! 
+id,pw 정보를 담은 /login 객체를 만들어서 재요청 시 전의 /login객체는 없어지고 새로운 객체가 생성됨
+HttpServletRequest 객체는 요청 할 때마다 이전의 객체 사라지고 새로 만들어져서 
+재요청 시 이전의 객체에 담겨있던 값은 사용 불가해진다
+->그래서 session 객체를 이용해서 해결했는데
+session도 계속 유지된다는 단점 있어서
+->자바 코드로 해결까지 했다
+
+-> 기존 HttpServletRequest가 사라지기 때문에
+    파라미터, request에 세팅한 속성 등을 사용 불가
+
+    -> 이 때 session을 이용하면 문제 해결 가능
+   ************************************************
+
+    ex) 메인 페이지 -> 로그인 -> 메인 페이지  
+        (로그인 성공/실패 했다는 페이지는 보통 없음)
+
+        게시글 목록 -> 게시글 작성 -> 작성한 게시글 페이지
+        (게시글이 작성되면 작성한 게시글 페이지로 이동함)
+
+
+    resp.sendRedirect("재요청할 주소"); //resp 객체 이용
+</pre>  
+<hr><hr><hr>
+<h1>종합 문제</h1>
+<h3>List에 같은 이름의 사람이 존재하는 지 확인하기</h3>
+<pre>
+    - 이름을 하나 입력 받아 "/search" 에 "Post"방식으로 요청을 보낼거임
+    -> form태그 해서 서블릿 만들어서 주소 위에 쓰고 Post 오버라이딩하기
+    - 서버(자바코드)에서 List에 입력 받은 이름이 있으면 
+        "OOO은 X번째 인덱스에 존재 합니다."라는 메시지를,
+        "/WEB-INF/views/practice/search_result.jsp"를 이용해서 출력하기
+        (성공하면 forward 수행)
+        요청 위임하면 request객체 유지됨(전달됨) ->request객체에 담아도 됨
+    - List에 입력 받은 이름이 없으면
+        "OOO은 존재하지 않습니다"라는 메시지를,
+        "/"(메인페이지를 재요청, 실패하면 redirect수행)에 돌아와서 출력해보겠다
+</pre>
+<h1>searchmessage : ${searchmessage}</h1>
+<form action="/search" method="POST">
+    검색할 이름 입력 : <input type="text" name="inputName">
+    <button>검색</button>
+
+</form>
+</body>
+</html>
