@@ -173,9 +173,9 @@ session도 계속 유지된다는 단점 있어서
         요청 위임하면 request객체 유지됨(전달됨) ->request객체에 담아도 됨
     - List에 입력 받은 이름이 없으면
         "OOO은 존재하지 않습니다"라는 메시지를,
-        "/"(메인페이지를 재요청, 실패하면 redirect수행)에 돌아와서 출력해보겠다
+        "/error" 주소를 요청해서(재요청) 출력해보겠다 (redirect하기 ->req로 할 수 없다)
 </pre>
-<h1>searchmessage : ${searchmessage}</h1>
+
 <form action="/search" method="POST">
     검색할 이름 입력 : <input type="text" name="inputName">
     <button>검색</button>
