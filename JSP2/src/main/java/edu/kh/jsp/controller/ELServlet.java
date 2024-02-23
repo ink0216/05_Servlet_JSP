@@ -61,11 +61,11 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 	test5.add("aaa");
 	test5.add("bbb");
 	
-	req.setAttribute("test1", test1);
-	req.setAttribute("test2", test2);
-	req.setAttribute("test3", test3);
-	req.setAttribute("test4", test4);
-	req.setAttribute("test5", test5);
+	req.setAttribute("test1", test1); //true
+	req.setAttribute("test2", test2); //true
+	req.setAttribute("test3", test3); //true
+	req.setAttribute("test4", test4); //true
+	req.setAttribute("test5", test5); //false
 	
 	
 	

@@ -72,8 +72,8 @@ public class SignupServlet extends HttpServlet{
 		
 		//->회원가입 할 때 정보를 입력하던 페이지로 이동하도록 해보기
 		
-		// - redirect는 무조건 GET방식 요청이다!!!!
-		resp.sendRedirect("/signup"); //이 코드 안쓰면 그냥 흰색 화면으로 나온다->그러면 안되니까 뭐라도 다른 요청 하는거임
+		
+		
 		//소괄호 안에 /로 하면 index로 돌아감
 		//Get 방식으로 /signup 주소를 요청한다
 		//redirect : 보통 응답 페이지를 필요로 하지 않는 경우에 사용
@@ -84,6 +84,11 @@ public class SignupServlet extends HttpServlet{
 		session.setAttribute("message", message); //이전의 request 객체가 아닌 session에 메세지 추가
 		//그러면 redirect를 해도 session에 저장했기에 메세지가 없어지지 않음
 		//->회원가입 위에 메세지가 출력될것이다
+		
+		// - redirect는 무조건 GET방식 요청이다!!!!
+		
+		resp.sendRedirect("/signup"); //이 코드 안쓰면 그냥 흰색 화면으로 나온다->그러면 안되니까 뭐라도 다른 요청 하는거임
+			
 		
 		//근데 session을 쓰면 단점이 있음
 		//session은 브라우저가 꺼지거나 세션 만료시까지 계속 남아있는 문제가 생긴다!!!
