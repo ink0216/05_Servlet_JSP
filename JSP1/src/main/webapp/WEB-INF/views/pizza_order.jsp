@@ -38,8 +38,8 @@
 
 		<div class="row">
 			<label>사이즈 : </label>
-			 R <input type="radio" name="size" value="R"checked> 
-			 L(+4000) <input type="radio" name="size" value="L">
+			R <input type="radio" name="size" value="R"checked> 
+			L(+4000) <input type="radio" name="size" value="L">
 		</div>
 
 		<div class="row">
